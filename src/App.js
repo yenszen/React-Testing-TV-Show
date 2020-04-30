@@ -16,6 +16,7 @@ export default function App() {
 
   useEffect(() => {
     fetchShow().then(res => {
+      console.log("App.js: useEffect: success", res);
       setShow(res.data);
       setSeasons(formatSeasons(res.data._embedded.episodes));
     });
@@ -26,13 +27,13 @@ export default function App() {
   };
 
   if (!show) {
-    return <h2>Fetching data...</h2>;
+    return <h2 data-testid="fetch-data">Fetching data...</h2>;
   }
 
   return (
     <div className="App">
       <img className="poster-img" src={show.image.original} alt={show.name} />
-      <h1>{show.name}</h1>
+      <h1 data-testid="show-name">{show.name}</h1>
       {parse(show.summary)}
       <Dropdown
         options={Object.keys(seasons)}
